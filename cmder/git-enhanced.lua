@@ -57,16 +57,30 @@ function string:trim()
     return self:match'^%s*(.*%S)' or ''
 end
 
-function string:split(sep)
-    if sep == nil then
-            sep = "%s"
+function string:split(p)
+    local temp = {}
+    local index = 0
+    local last_index = string.len(self)
+
+    while true do
+        local i, e = string.find(self, p, index)
+
+        if i and e then
+            local next_index = e + 1
+            local word_bound = i - 1
+            table.insert(temp, string.sub(self, index, word_bound))
+            index = next_index
+        else            
+            if index > 0 and index <= last_index then
+                table.insert(temp, string.sub(self, index, last_index))
+            elseif index == 0 then
+                table.insert(temp, self)
+            end
+            break
+        end
     end
-    local t={} ; i=1
-    for str in string.gmatch(self, "([^"..sep.."]+)") do
-            t[i] = str
-            i = i + 1
-    end
-    return t
+
+    return temp
 end
 
 ---
@@ -122,10 +136,10 @@ function get_git_enhanced_status()
                 _,_,result.branch = rest:find("Initial commit on (.+)")
             elseif rest:find("no branch") then
                 result.branch = get_git_tag_or_hash()
-            elseif #rest:split("...") == 1 then
+            elseif #rest:split("%.%.%.") == 1 then
                 result.branch = rest
             else
-                chunks = rest:split("...")
+                chunks = rest:split("%.%.%.")
                 result.branch = chunks[1]
                 result.remote = chunks[2]:split(" ")[1]
                 if #chunks[2]:split(" ") > 1 then
