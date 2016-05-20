@@ -121,7 +121,6 @@ end
  -- @return {false|git branch name}
 ---
 function get_git_branch()
-    print('boom')
     for line in io.popen("git branch 2>nul"):lines() do
         local m = line:match("%* (.+)$")
         if m then
