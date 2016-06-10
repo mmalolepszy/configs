@@ -5,5 +5,3 @@
 :: @set PATH=%CMDER_ROOT%\vendor\whatever;%PATH%
 
 @prompt $E[1;32;40m$P$S{git_enhanced}{hg}$E[1;30;40m{lamb}$S$E[0m
-
-@cd /d C:\Projects\
