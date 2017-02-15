@@ -87,7 +87,7 @@ end
  -- Find out number of stashes
 ---
 function get_git_stash()
-    for line in io.popen("cat "..get_git_dir().."/logs/refs/stash 2>nul| wc -l"):lines() do
+    for line in io.popen("type "..get_git_dir().."/logs/refs/stash 2>nul| wc -l"):lines() do
         return tonumber(line)
     end
 end
@@ -257,4 +257,3 @@ function git_enhanced_prompt_filter()
     return false
 end
 
-clink.prompt.register_filter(git_enhanced_prompt_filter, 50)
