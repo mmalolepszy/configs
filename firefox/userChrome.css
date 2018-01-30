@@ -1,0 +1,22 @@
+.tabbrowser-tab:not([pinned]) {
+  	min-width: 36px !important;
+}
+
+.tab-content {
+	padding: 0 9px !important;
+	min-width: 18px !important;
+}
+
+.tab-close-button,
+.tabs-newtab-button,
+#new-tab-button {
+  	display: none !important;
+}
+
+#alltabs-button {
+	display: none !important;
+}
+
+.titlebar-placeholder[type="post-tabs"] {
+	display: none !important;
+}
